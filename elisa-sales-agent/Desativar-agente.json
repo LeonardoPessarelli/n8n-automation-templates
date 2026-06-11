@@ -177,7 +177,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.z-api.io/instances/3DE585DEC789E0E2C9304AF752FBD4C9/token/88C8DFC8ACED1468BFFD83F2/send-text",
+        "url": "https://api.z-api.io/instances/YOUR_INSTANCE_ID/token/YOUR_TOKEN/send-text",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -371,4 +371,5 @@
     }
   ]
 }
+
 

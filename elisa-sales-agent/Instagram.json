@@ -1684,7 +1684,7 @@
       {
         "json": {
           "headers": {
-            "host": "primary-production-ecd5.up.railway.app",
+            "host": "YOUR_RAILWAY_HOST",
             "user-agent": "facebookexternalua",
             "content-length": "740",
             "accept": "*/*",
@@ -1692,7 +1692,7 @@
             "content-type": "application/json",
             "instagram-api-version": "v22.0",
             "x-forwarded-for": "31.13.127.4",
-            "x-forwarded-host": "primary-production-ecd5.up.railway.app",
+            "x-forwarded-host": "YOUR_RAILWAY_HOST",
             "x-forwarded-proto": "https",
             "x-hub-signature": "sha1=6f7eabba2e563425160d3c0a2df3fb0a3a4e60d5",
             "x-hub-signature-256": "sha256=95d4b9d745939d12295ac9540f6b8a06df85b45aefd8c72591079bfd547b5678",
@@ -1724,7 +1724,7 @@
                         {
                           "type": "audio",
                           "payload": {
-                            "url": "https://lookaside.fbsbx.com/ig_messaging_cdn/?asset_id=685144853933745&signature=AYevGtXbHZfwgZnU7A_imYHTvTFnzp3M7FruLNP_hHOU6K9RVcT223ZWsSOcQPeQCsX0oIxvB9hDIk_4YF56yzyZKkONHIBUrfw-EpwSFphBBWeHO1vLTth5nKiGUqhYzKknoJBJOPBT4m5JwH7t7Fltab1Jo0U4LjXVaKTSmMY9P_Jluhm2ee6ZxthDCnUtUYI23RT1UG9ki_LkaxYkqkSs22yr"
+                            "url": "YOUR_FB_CDN_URL"
                           }
                         }
                       ]
@@ -1734,7 +1734,7 @@
               }
             ]
           },
-          "webhookUrl": "https://primary-production-ecd5.up.railway.app/webhook/instagram",
+          "webhookUrl": "https://YOUR_RAILWAY_HOST/webhook/instagram",
           "executionMode": "production"
         }
       }
@@ -1743,7 +1743,7 @@
       {
         "json": {
           "headers": {
-            "host": "primary-production-ecd5.up.railway.app",
+            "host": "YOUR_RAILWAY_HOST",
             "user-agent": "facebookexternalua",
             "content-length": "408",
             "accept": "*/*",
@@ -1751,7 +1751,7 @@
             "content-type": "application/json",
             "instagram-api-version": "v22.0",
             "x-forwarded-for": "31.13.127.112",
-            "x-forwarded-host": "primary-production-ecd5.up.railway.app",
+            "x-forwarded-host": "YOUR_RAILWAY_HOST",
             "x-forwarded-proto": "https",
             "x-hub-signature": "sha1=492521b7139128e82f7f33cecd6e2820cf5e6684",
             "x-hub-signature-256": "sha256=c766f50db0ced6452addf2514f54f780dc100d397e6136a4a8930597b98fc4db",
@@ -1786,7 +1786,7 @@
               }
             ]
           },
-          "webhookUrl": "https://primary-production-ecd5.up.railway.app/webhook/instagram",
+          "webhookUrl": "https://YOUR_RAILWAY_HOST/webhook/instagram",
           "executionMode": "production"
         }
       }
@@ -1795,7 +1795,7 @@
       {
         "json": {
           "headers": {
-            "host": "primary-production-ecd5.up.railway.app",
+            "host": "YOUR_RAILWAY_HOST",
             "user-agent": "facebookexternalua",
             "content-length": "740",
             "accept": "*/*",
@@ -1803,7 +1803,7 @@
             "content-type": "application/json",
             "instagram-api-version": "v22.0",
             "x-forwarded-for": "31.13.127.17",
-            "x-forwarded-host": "primary-production-ecd5.up.railway.app",
+            "x-forwarded-host": "YOUR_RAILWAY_HOST",
             "x-forwarded-proto": "https",
             "x-hub-signature": "sha1=3b800af0b5af51a254047c953a2df7e2c4705088",
             "x-hub-signature-256": "sha256=e50746b8d7c3786e22c781d807f788473f83950738c71872610dfa7c40d7b091",
@@ -1835,7 +1835,7 @@
                         {
                           "type": "image",
                           "payload": {
-                            "url": "https://lookaside.fbsbx.com/ig_messaging_cdn/?asset_id=645001328386180&signature=AYd_vxWLuyXrWVk_ul5P-VpiZrvj9hPClTy8RPm5g5oExY1OOZuS5Btd-fNBXptOn5kYAEJUiNLvWpVKIymKpVg4-1xd1VyPoS6zamvbRxq6xrBtDwR1njJYaiunf5hkNhrwQfWIMr3bZ7xqfRae2KuqkYgsBP-IAnmjvQbP6jrHuXyGJGVmsDMy6U0kJoBd_-H8Vr1_sH-qnUtcC2jZnke8lVPx"
+                            "url": "YOUR_FB_CDN_URL"
                           }
                         }
                       ]
@@ -1845,7 +1845,7 @@
               }
             ]
           },
-          "webhookUrl": "https://primary-production-ecd5.up.railway.app/webhook/instagram",
+          "webhookUrl": "https://YOUR_RAILWAY_HOST/webhook/instagram",
           "executionMode": "production"
         }
       }
@@ -2450,4 +2450,5 @@
     }
   ]
 }
+
 
