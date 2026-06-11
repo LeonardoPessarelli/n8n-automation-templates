@@ -1,0 +1,1382 @@
+﻿{
+  "name": "MCP SERVER Nexvia",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "86b021dc-160c-4483-b784-37cb65f043ef"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        144,
+        -128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "MCP Server Trigger1",
+      "webhookId": "86b021dc-160c-4483-b784-37cb65f043ef"
+    },
+    {
+      "parameters": {
+        "description": "# Consultar_disponibilidade do profissional escolhido pelo cliente",
+        "workflowId": {
+          "__rl": true,
+          "value": "DkXn9cQhCYU5GiQE",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/DkXn9cQhCYU5GiQE",
+          "cachedResultName": "Tools MCP Nexvia"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tipo": "Consultar_disponibilidade",
+            "profissional_id": "={{ $fromAI('profissional_id', '# id do profissional escolhido pelo cliente', 'string') }}",
+            "data_inicio": "={{ $fromAI('data_inicio', 'Data de início no formato ISO 8601 (ex: 2026-05-14T10:00:00)', 'string') }}",
+            "data_fim": "={{ $fromAI('data_fim', 'Data de fim no formato ISO 8601 (ex: 2026-05-14T19:00:00)', 'string') }}",
+            "Conversa_ID": "={{ $fromAI('Conversa_ID', 'Id da conversa do usuário no Telegram', 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Conversa_ID",
+              "displayName": "Conversa_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "profissional_id",
+              "displayName": "profissional_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_inicio",
+              "displayName": "data_inicio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_fim",
+              "displayName": "data_fim",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "titulo",
+              "displayName": "titulo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "descricao",
+              "displayName": "descricao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "agenda_id",
+              "displayName": "agenda_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "plano_interesse",
+              "displayName": "plano_interesse",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "objecao",
+              "displayName": "objecao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "data_txt",
+              "displayName": "data_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "horario_txt",
+              "displayName": "horario_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "evento_id",
+              "displayName": "evento_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Consultar_disponibilidade"
+    },
+    {
+      "parameters": {
+        "description": "# Agendar tool para agendar consultas",
+        "workflowId": {
+          "__rl": true,
+          "value": "DkXn9cQhCYU5GiQE",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/DkXn9cQhCYU5GiQE",
+          "cachedResultName": "Tools MCP Nexvia"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "profissional_id": "={{ $fromAI('profissional_id', 'id do profissional selecionado', 'string') }}",
+            "data_inicio": "={{ $fromAI('data_inicio', 'Data de início no formato ISO 8601', 'string') }}",
+            "data_fim": "={{ $fromAI('data_fim', 'Data de fim no formato ISO 8601', 'string') }}",
+            "titulo": "={{ $fromAI('titulo', '# titulo da consulta', 'string') }}",
+            "agenda_id": "={{ $fromAI('agenda_id', 'id da agenda do profissional', 'string') }}",
+            "Conversa_ID": "={{ $fromAI('Conversa_ID', 'Id da conversa do usuário no Telegram', 'string') }}",
+            "WhatsApp": "={{ $fromAI('WhatsApp', 'Número do WhatsApp ou conversa_id do cliente', 'string') }}",
+            "nome": "={{ $fromAI('nome', 'nome do cliente', 'string') }}",
+            "empresa": "={{ $fromAI('empresa', 'nome da empresa do cliente', 'string') }}",
+            "plano_interesse": "={{ $fromAI('plano_interesse', 'plano de interesse do cliente (opcional)', 'string') || '' }}\n",
+            "objecao": "={{ $fromAI('objecao', 'objeção do cliente (opcional)', 'string') || '' }}",
+            "tipo": "Agendar",
+            "descricao": "={{ $fromAI('descricao', '# descricao detalhada da consulta', 'string') }}",
+            "data_txt": "={{ $fromAI('data_txt', 'Data formatada em texto (ex: 15 de maio)', 'string') }}",
+            "horario_txt": "={{ $fromAI('horario_txt', 'Horário formatado (ex: 17:00)', 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Conversa_ID",
+              "displayName": "Conversa_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "profissional_id",
+              "displayName": "profissional_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_inicio",
+              "displayName": "data_inicio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_fim",
+              "displayName": "data_fim",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "titulo",
+              "displayName": "titulo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "descricao",
+              "displayName": "descricao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "agenda_id",
+              "displayName": "agenda_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "plano_interesse",
+              "displayName": "plano_interesse",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "objecao",
+              "displayName": "objecao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "data_txt",
+              "displayName": "data_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "horario_txt",
+              "displayName": "horario_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "evento_id",
+              "displayName": "evento_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Agendar"
+    },
+    {
+      "parameters": {
+        "description": "# Buscar_consultas agendadas do cliente",
+        "workflowId": {
+          "__rl": true,
+          "value": "DkXn9cQhCYU5GiQE",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/DkXn9cQhCYU5GiQE",
+          "cachedResultName": "Tools MCP Nexvia"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tipo": "Buscar_consultas",
+            "WhatsApp": "={{ $fromAI('WhatsApp', 'Número do WhatsApp ou conversa_id do cliente', 'string') }}",
+            "Conversa_ID": "={{ $fromAI('Conversa_ID', 'Id da conversa do usuário no Telegram', 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Conversa_ID",
+              "displayName": "Conversa_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "profissional_id",
+              "displayName": "profissional_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_inicio",
+              "displayName": "data_inicio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_fim",
+              "displayName": "data_fim",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "titulo",
+              "displayName": "titulo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "descricao",
+              "displayName": "descricao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "agenda_id",
+              "displayName": "agenda_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "plano_interesse",
+              "displayName": "plano_interesse",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "objecao",
+              "displayName": "objecao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "data_txt",
+              "displayName": "data_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "horario_txt",
+              "displayName": "horario_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "evento_id",
+              "displayName": "evento_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar_consultas"
+    },
+    {
+      "parameters": {
+        "description": "# Reagendar, tool para Reagendar consultas",
+        "workflowId": {
+          "__rl": true,
+          "value": "DkXn9cQhCYU5GiQE",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/DkXn9cQhCYU5GiQE",
+          "cachedResultName": "Tools MCP Nexvia"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tipo": "Reagendar",
+            "profissional_id": "={{ $fromAI('profissional_id', 'ID do profissional', 'string') }}",
+            "data_inicio": "={{ $fromAI('data_inicio', 'Nova data de início no formato ISO 8601', 'string') }}",
+            "data_fim": "={{ $fromAI('data_fim', 'Nova data de fim no formato ISO 8601', 'string') }}",
+            "titulo": "={{ $fromAI('titulo', '# titulo da consulta', 'string') }}",
+            "agenda_id": "={{ $fromAI('agenda_id', 'ID da agenda do profissional no Google Calendar', 'string') }}",
+            "Conversa_ID": "={{ $fromAI('Conversa_ID', 'Id da conversa do usuário no Telegram', 'string') }}",
+            "WhatsApp": "={{ $fromAI('WhatsApp', 'Número do WhatsApp ou conversa_id do cliente', 'string') }}",
+            "evento_id": "={{ $fromAI('evento_id', 'id do evento para ser reagendado', 'string') }}",
+            "descricao": "={{ $fromAI('descricao', '# descricao detalhada da consulta', 'string') }}",
+            "data_txt": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('data_txt', `data em texto (ex: \"20 de maio de 2026\")`, 'string') }}",
+            "horario_txt": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('horario_txt', `horário em texto (ex: \"14h30\")`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Conversa_ID",
+              "displayName": "Conversa_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "profissional_id",
+              "displayName": "profissional_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_inicio",
+              "displayName": "data_inicio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_fim",
+              "displayName": "data_fim",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "titulo",
+              "displayName": "titulo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "descricao",
+              "displayName": "descricao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "agenda_id",
+              "displayName": "agenda_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "plano_interesse",
+              "displayName": "plano_interesse",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "objecao",
+              "displayName": "objecao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "data_txt",
+              "displayName": "data_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "horario_txt",
+              "displayName": "horario_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "evento_id",
+              "displayName": "evento_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Reagendar"
+    },
+    {
+      "parameters": {
+        "description": "# Consultar_profissionais\n- Lista dados dos profissionais como nome, id, agenda_id",
+        "workflowId": {
+          "__rl": true,
+          "value": "DkXn9cQhCYU5GiQE",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/DkXn9cQhCYU5GiQE",
+          "cachedResultName": "Tools MCP Nexvia"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Conversa_ID": "={{ $fromAI('Conversa_ID', 'Id da conversa do usuário no Telegram', 'string') }}",
+            "tipo": "Consultar_profissionais",
+            "profissional_id": "={{ $fromAI('profissional_id', 'ID do profissional para filtrar as consultas', 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Conversa_ID",
+              "displayName": "Conversa_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "profissional_id",
+              "displayName": "profissional_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_inicio",
+              "displayName": "data_inicio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_fim",
+              "displayName": "data_fim",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "titulo",
+              "displayName": "titulo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "descricao",
+              "displayName": "descricao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "agenda_id",
+              "displayName": "agenda_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "plano_interesse",
+              "displayName": "plano_interesse",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "objecao",
+              "displayName": "objecao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "data_txt",
+              "displayName": "data_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "horario_txt",
+              "displayName": "horario_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "evento_id",
+              "displayName": "evento_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Consultar_profissionais"
+    },
+    {
+      "parameters": {
+        "description": "#Cancelar eventos agendados",
+        "workflowId": {
+          "__rl": true,
+          "value": "DkXn9cQhCYU5GiQE",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/DkXn9cQhCYU5GiQE",
+          "cachedResultName": "Tools MCP Nexvia"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "agenda_id": "={{ $fromAI('agenda_id', '# id da agenda onde está agendado o evento', 'string') }}",
+            "Conversa_ID": "={{ $fromAI('Conversa_ID', 'Id da conversa do usuário no Telegram', 'string') }}",
+            "WhatsApp": "={{ $fromAI('WhatsApp', 'Número do WhatsApp ou conversa_id do cliente', 'string') }}",
+            "tipo": "Cancelar",
+            "evento_id": "={{ $fromAI('evento_id', '# id do evento (id_calendar)', 'string') }}",
+            "profissional_id": "0"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Conversa_ID",
+              "displayName": "Conversa_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tipo",
+              "displayName": "tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "profissional_id",
+              "displayName": "profissional_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_inicio",
+              "displayName": "data_inicio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "data_fim",
+              "displayName": "data_fim",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "titulo",
+              "displayName": "titulo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "descricao",
+              "displayName": "descricao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "agenda_id",
+              "displayName": "agenda_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "plano_interesse",
+              "displayName": "plano_interesse",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "objecao",
+              "displayName": "objecao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "data_txt",
+              "displayName": "data_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "horario_txt",
+              "displayName": "horario_txt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "evento_id",
+              "displayName": "evento_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        384,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Cancelar"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Atualiza a tabela nexvia agendamento ",
+        "operation": "update",
+        "tableId": "nexvia_agendamentos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "evento_id",
+              "condition": "eq",
+              "keyValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conditions0_Field_Value', `ID do evento`, 'string') }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "data_txt",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Value', `A data formatada (ex: \"15 de maio\").`, 'string') }}"
+            },
+            {
+              "fieldId": "horario_txt",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues1_Field_Value', `O horário formatado (ex: \"17:00\").`, 'string') }}"
+            },
+            {
+              "fieldId": "data_inicio",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues2_Field_Value', `(timestamptz ISO)`, 'string') }}"
+            },
+            {
+              "fieldId": "data_fim",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues3_Field_Value', `(timestamptz ISO)`, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        784,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "atualiza_agendamento",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Atualiza os dados do cliente na tabela nexvia_clientes. Use esta tool SEMPRE que souber o nome, WhatsApp ou empresa do cliente — especialmente logo após o agendamento. O uid_comunicacao é o ID da conversa do Telegram.\n",
+        "operation": "update",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid_comunicacao",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('conditions0_Field_Value', 'ID da conversa do usuário para identificar qual cliente atualizar', 'string') }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "nome",
+              "fieldValue": "={{ $fromAI('fieldValues1_Field_Value', 'nome do cliente', 'string') }}"
+            },
+            {
+              "fieldId": "whatsapp",
+              "fieldValue": "={{ $fromAI('fieldValues2_Field_Value', 'numero do telefone do cliente', 'string') }}"
+            },
+            {
+              "fieldId": "empresa",
+              "fieldValue": "={{ $fromAI('fieldValues3_Field_Value', 'nome da empresa do cliente (opcional)', 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        624,
+        128
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "atualizar_cliente",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Consultar_disponibilidade": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar_consultas": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reagendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar_profissionais": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "atualiza_agendamento": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "atualizar_cliente": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "errorWorkflow": "CPL2N4FPIpplMfCR"
+  },
+  "versionId": "4ad75c2d-b4ee-4e59-a2d1-bbe936091f18",
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "sTE9ekTkwHkttgRo",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}

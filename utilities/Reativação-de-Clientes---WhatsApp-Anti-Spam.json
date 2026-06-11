@@ -1,0 +1,740 @@
+﻿{
+  "name": "Reativação de Clientes - WhatsApp Anti-Spam",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Trigger Agendamento",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1488,
+        416
+      ],
+      "notes": "Dispara 1x por dia. Ajuste conforme sua necessidade."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "param-001",
+              "name": "instancia",
+              "value": "SUA_INSTANCIA_EVOLUTION",
+              "type": "string"
+            },
+            {
+              "id": "param-002",
+              "name": "apiUrl",
+              "value": "https://SUA_URL_EVOLUTION_API",
+              "type": "string"
+            },
+            {
+              "id": "param-003",
+              "name": "apiKey",
+              "value": "SUA_API_KEY_EVOLUTION",
+              "type": "string"
+            },
+            {
+              "id": "param-004",
+              "name": "delayMinimoSegundos",
+              "value": 45,
+              "type": "number"
+            },
+            {
+              "id": "param-005",
+              "name": "delayMaximoSegundos",
+              "value": 120,
+              "type": "number"
+            },
+            {
+              "id": "param-006",
+              "name": "limitePorRodada",
+              "value": 30,
+              "type": "number"
+            },
+            {
+              "id": "param-007",
+              "name": "pausaEntreRodadasMinutos",
+              "value": 60,
+              "type": "number"
+            },
+            {
+              "id": "param-008",
+              "name": "campanhaId",
+              "value": "reativacao_maio_2025",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Parâmetros Campanha",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1248,
+        416
+      ],
+      "notes": "⚙️ Configure aqui: instância, URL, API Key, delays e limites"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// COLE AQUI A LISTA DE CONTATOS DO SEU WHATSAPP\n// Formato: { nome, numero, ultimaCompra (opcional) }\n// O número deve estar no formato: 5511999999999\n// (55 + DDD + número, sem espaços ou símbolos)\n// ============================================================\n\nconst contatos = [\n  { nome: \"João Silva\", numero: \"5511999990001\", ultimaCompra: \"2024-10-15\" },\n  { nome: \"Maria Santos\", numero: \"5511999990002\", ultimaCompra: \"2024-09-20\" },\n  { nome: \"Carlos Oliveira\", numero: \"5521999990003\", ultimaCompra: \"2024-11-01\" },\n  { nome: \"Ana Costa\", numero: \"5531999990004\", ultimaCompra: \"2024-08-30\" },\n  { nome: \"Pedro Lima\", numero: \"5541999990005\", ultimaCompra: \"2024-12-05\" }\n  // Adicione mais contatos aqui...\n];\n\n// Validação e normalização dos números\nconst contatosValidos = contatos\n  .filter(c => c.numero && c.numero.toString().length >= 12)\n  .map(c => ({\n    nome: c.nome || 'Cliente',\n    numero: c.numero.toString().replace(/\\D/g, ''),\n    ultimaCompra: c.ultimaCompra || null,\n    numeroFormatado: c.numero.toString().replace(/\\D/g, '') + '@s.whatsapp.net'\n  }));\n\nconsole.log(`✅ ${contatosValidos.length} contatos válidos carregados`);\n\nreturn contatosValidos.map(c => ({ json: c }));"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Lista de Contatos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1008,
+        416
+      ],
+      "notes": "📋 Cole aqui os números exportados do WhatsApp"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "enviados",
+        "key": "={{ $('Parâmetros Campanha').item.json.campanhaId }}_enviados",
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Verificar Já Enviados (Redis)",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -768,
+        416
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "redis": {
+          "id": "eSMj7QmQNIcsLfY9",
+          "name": "Redis Upstash"
+        }
+      },
+      "notes": "Busca lista de números que já receberam mensagem nesta campanha"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filtra contatos que ainda NÃO receberam mensagem\nconst todosContatos = $input.all();\nconst redisResult = $('Verificar Já Enviados (Redis)').first();\n\nlet jaEnviados = [];\ntry {\n  const raw = redisResult?.json?.enviados || redisResult?.json?.value || null;\n  if (raw) {\n    jaEnviados = typeof raw === 'string' ? JSON.parse(raw) : raw;\n  }\n} catch(e) {\n  jaEnviados = [];\n}\n\nconsole.log(`📊 Já enviados: ${jaEnviados.length}`);\n\nconst pendentes = todosContatos.filter(item => {\n  return !jaEnviados.includes(item.json.numero);\n});\n\nconsole.log(`📬 Pendentes para envio: ${pendentes.length}`);\n\nif (pendentes.length === 0) {\n  console.log('✅ Todos os contatos já foram contactados nesta campanha!');\n  return [];\n}\n\n// Limita por rodada para não sobrecarregar\nconst limite = $('Parâmetros Campanha').item.json.limitePorRodada || 30;\nconst lote = pendentes.slice(0, limite);\n\nconsole.log(`🚀 Enviando lote de ${lote.length} contatos`);\n\nreturn lote;"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Filtrar Pendentes + Lote",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        416
+      ],
+      "notes": "Remove quem já recebeu e limita por lote para segurança"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-001",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Tem Contatos Pendentes?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -288,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Loop Contatos",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -48,
+        272
+      ],
+      "notes": "Processa um contato por vez"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verifica horário comercial para não enviar em horários ruins\nconst agora = new Date();\n// Ajusta para horário de Brasília (UTC-3)\nconst horasBrasilia = new Date(agora.getTime() - 3 * 60 * 60 * 1000);\nconst hora = horasBrasilia.getUTCHours();\nconst diaSemana = horasBrasilia.getUTCDay(); // 0=dom, 6=sab\n\n// Só envia entre 9h e 20h, de segunda a sábado\nconst horarioOk = hora >= 9 && hora < 20;\nconst diaOk = diaSemana >= 1 && diaSemana <= 6;\n\nif (!horarioOk || !diaOk) {\n  console.log(`⏰ Fora do horário comercial. Hora: ${hora}h, Dia: ${diaSemana}. Pulando...`);\n  return [];\n}\n\n// Gera delay aleatório humanizado\nconst parametros = $('Parâmetros Campanha').item.json;\nconst delayMin = parametros.delayMinimoSegundos || 45;\nconst delayMax = parametros.delayMaximoSegundos || 120;\nconst delaySeg = Math.floor(Math.random() * (delayMax - delayMin + 1)) + delayMin;\n\nconst item = $input.first();\n\nreturn [{\n  json: {\n    ...item.json,\n    delaySeg,\n    horaEnvio: horasBrasilia.toISOString()\n  }\n}];"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Validar Horário + Delay Aleatório",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        192,
+        272
+      ],
+      "notes": "✅ Só envia 9h-20h seg-sáb | Delay humano aleatório"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-horario-001",
+              "leftValue": "={{ $json.delaySeg }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Horário Comercial OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "amount": "={{ $json.delaySeg }}"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Aguardar Delay Humanizado",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        272
+      ],
+      "webhookId": "reativacao-delay-001",
+      "notes": "Espera entre 45s e 120s aleatório — imita comportamento humano"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Gera a mensagem personalizada de reativação\n// Adapte o texto conforme sua marca/produto\n\nconst item = $input.first().json;\nconst nome = item.nome ? item.nome.split(' ')[0] : 'cliente';\n\n// Variações de mensagem para evitar padrão (reduz risco de spam)\nconst variacoes = [\n  `Olá ${nome}! 👋 Tudo bem?\\n\\nSou da equipe LM Smartwatch e vi que faz um tempinho que não conversamos.\\n\\nTemos novidades incríveis que acho que você vai amar! Posso te mostrar? 😊`,\n  \n  `Oi ${nome}! 😊\\n\\nPassando aqui rapidinho da LM Smartwatch...\\n\\nTemos algumas ofertas exclusivas essa semana que separei especialmente pra você! Quer dar uma olhada?`,\n  \n  `${nome}, olá! 🤝\\n\\nAqui é da LM Smartwatch. Faz um tempo que não nos falamos!\\n\\nTemos um mimo especial para clientes que já compraram com a gente. Posso te contar mais?`,\n  \n  `Oi ${nome}! Tudo certo? 👋\\n\\nSou da LM Smartwatch e queria saber se posso te ajudar com algo.\\n\\nTemos lançamentos novos que podem te interessar! 🕐✨`\n];\n\n// Escolhe variação baseada no número do telefone (consistente por contato)\nconst idx = parseInt(item.numero.slice(-1)) % variacoes.length;\nconst mensagem = variacoes[idx];\n\nreturn [{\n  json: {\n    ...item,\n    mensagemTexto: mensagem,\n    variacaoUsada: idx\n  }\n}];"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Gerar Mensagem Personalizada",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        272
+      ],
+      "notes": "📝 4 variações de texto — edite conforme sua marca"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Parâmetros Campanha').item.json.apiUrl }}/message/sendText/{{ $('Parâmetros Campanha').item.json.instancia }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Parâmetros Campanha').item.json.apiKey }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\": \"{{ $json.numero }}\",\n  \"text\": \"{{ $json.mensagemTexto }}\",\n  \"delay\": 1200\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Enviar Mensagem (Evolution API)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1152,
+        272
+      ],
+      "notes": "📨 Envia via Evolution API — delay de digitação incluso"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-status-001",
+              "leftValue": "={{ $json.key?.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Mensagem Enviada?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1392,
+        272
+      ],
+      "notes": "Verifica se a Evolution API confirmou o envio"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Registra o envio bem-sucedido no Redis\n// Isso evita reenvio em futuras execuções\n\nconst numero = $('Validar Horário + Delay Aleatório').item.json.numero;\nconst campanhaId = $('Parâmetros Campanha').item.json.campanhaId;\nconst chaveRedis = `${campanhaId}_enviados`;\n\nreturn [{\n  json: {\n    numero,\n    campanhaId,\n    chaveRedis,\n    timestamp: new Date().toISOString(),\n    status: 'enviado'\n  }\n}];"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Preparar Registro Envio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1632,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $json.chaveRedis }}",
+        "messageData": "={{ $json.numero }}",
+        "tail": true
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Registrar Enviado (Redis)",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1872,
+        416
+      ],
+      "credentials": {
+        "redis": {
+          "id": "eSMj7QmQNIcsLfY9",
+          "name": "Redis Upstash"
+        }
+      },
+      "notes": "Salva número como enviado para não repetir"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log de falha — registra para análise posterior\nconst item = $('Validar Horário + Delay Aleatório').item.json;\nconsole.error(`❌ Falha ao enviar para ${item.numero} (${item.nome})`);\n\nreturn [{\n  json: {\n    numero: item.numero,\n    nome: item.nome,\n    status: 'falha',\n    timestamp: new Date().toISOString(),\n    motivo: 'Evolution API não confirmou envio'\n  }\n}];"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Registrar Falha",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1632,
+        112
+      ],
+      "notes": "Log de erros para análise"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Parâmetros Campanha').item.json.campanhaId }}_falhas",
+        "messageData": "={{ JSON.stringify({ numero: $json.numero, nome: $json.nome, timestamp: $json.timestamp }) }}",
+        "tail": true
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Salvar Falha (Redis)",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1872,
+        112
+      ],
+      "credentials": {
+        "redis": {
+          "id": "eSMj7QmQNIcsLfY9",
+          "name": "Redis Upstash"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Continuar Loop (Falha)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2112,
+        112
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Pular - Fora do Horário",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        400,
+        48
+      ],
+      "notes": "Contato não enviado por estar fora do horário comercial"
+    },
+    {
+      "parameters": {},
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Campanha Concluída",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        576
+      ],
+      "notes": "✅ Todos os contatos foram contactados nesta campanha"
+    },
+    {
+      "parameters": {
+        "amount": "={{ $('Parâmetros Campanha').item.json.pausaEntreRodadasMinutos }}",
+        "unit": "minutes"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Pausa Entre Rodadas",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2112,
+        416
+      ],
+      "webhookId": "reativacao-pausa-001",
+      "notes": "⏸️ Pausa de 60 min entre lotes — proteção anti-spam crítica"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Relatório final da rodada\nconst campanhaId = $('Parâmetros Campanha').item.json.campanhaId;\nconsole.log(`📊 Rodada concluída para campanha: ${campanhaId}`);\nconsole.log(`🔄 Próxima rodada em breve conforme agendamento...`);\n\nreturn [{\n  json: {\n    status: 'rodada_concluida',\n    campanhaId,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Log Rodada Concluída",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2352,
+        416
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Trigger Agendamento": {
+      "main": [
+        [
+          {
+            "node": "Parâmetros Campanha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parâmetros Campanha": {
+      "main": [
+        [
+          {
+            "node": "Lista de Contatos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de Contatos": {
+      "main": [
+        [
+          {
+            "node": "Verificar Já Enviados (Redis)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verificar Já Enviados (Redis)": {
+      "main": [
+        [
+          {
+            "node": "Filtrar Pendentes + Lote",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar Pendentes + Lote": {
+      "main": [
+        [
+          {
+            "node": "Tem Contatos Pendentes?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tem Contatos Pendentes?": {
+      "main": [
+        [
+          {
+            "node": "Loop Contatos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Campanha Concluída",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Contatos": {
+      "main": [
+        [
+          {
+            "node": "Validar Horário + Delay Aleatório",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Horário + Delay Aleatório": {
+      "main": [
+        [
+          {
+            "node": "Horário Comercial OK?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Horário Comercial OK?": {
+      "main": [
+        [
+          {
+            "node": "Aguardar Delay Humanizado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pular - Fora do Horário",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aguardar Delay Humanizado": {
+      "main": [
+        [
+          {
+            "node": "Gerar Mensagem Personalizada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gerar Mensagem Personalizada": {
+      "main": [
+        [
+          {
+            "node": "Enviar Mensagem (Evolution API)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Mensagem (Evolution API)": {
+      "main": [
+        [
+          {
+            "node": "Mensagem Enviada?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensagem Enviada?": {
+      "main": [
+        [
+          {
+            "node": "Preparar Registro Envio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Registrar Falha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Registro Envio": {
+      "main": [
+        [
+          {
+            "node": "Registrar Enviado (Redis)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registrar Enviado (Redis)": {
+      "main": [
+        [
+          {
+            "node": "Pausa Entre Rodadas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pausa Entre Rodadas": {
+      "main": [
+        [
+          {
+            "node": "Log Rodada Concluída",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registrar Falha": {
+      "main": [
+        [
+          {
+            "node": "Salvar Falha (Redis)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salvar Falha (Redis)": {
+      "main": [
+        [
+          {
+            "node": "Continuar Loop (Falha)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Continuar Loop (Falha)": {
+      "main": [
+        [
+          {
+            "node": "Loop Contatos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pular - Fora do Horário": {
+      "main": [
+        [
+          {
+            "node": "Loop Contatos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e6bf3bce-400a-4b34-ac8d-803ee6471f90",
+  "meta": {
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "KDeiDQZDMyr689hA",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}

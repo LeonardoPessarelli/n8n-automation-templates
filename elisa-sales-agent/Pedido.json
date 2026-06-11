@@ -1,0 +1,1104 @@
+﻿{
+  "name": "Flow Pedido LM Smartwatch",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1",
+              "name": "nome",
+              "value": "={{ $json.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "f2",
+              "name": "whatsapp",
+              "value": "={{ $json.whatsapp }}",
+              "type": "string"
+            },
+            {
+              "id": "f3",
+              "name": "cpfCnpj",
+              "value": "={{ $json.cpfCnpj.toString().replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "f4",
+              "name": "sku_produto",
+              "value": "={{ $json.sku_produto }}",
+              "type": "string"
+            },
+            {
+              "id": "f5",
+              "name": "valor_produto",
+              "value": "={{ $json.valor_produto.toString().replace(',', '.') }}",
+              "type": "number"
+            },
+            {
+              "id": "f6",
+              "name": "valor_frete",
+              "value": "={{ $json.valor_frete.toString().replace(',', '.') }}",
+              "type": "number"
+            },
+            {
+              "id": "f7",
+              "name": "forma_pag",
+              "value": "={{ $json.forma_pag }}",
+              "type": "string"
+            },
+            {
+              "id": "f8",
+              "name": "registro_cliente_id",
+              "value": "={{ $json.registro_cliente_id }}",
+              "type": "string"
+            },
+            {
+              "id": "f9",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "name": "cep_destino",
+              "value": "={{ $json.cep_completo }}",
+              "type": "string"
+            },
+            {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "name": "nome_produto",
+              "value": "={{ $json.nome_produto }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Padronizar Dados",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1040,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api-sandbox.asaas.com/v3/customers",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "cpfCnpj",
+              "value": "={{ $('Padronizar Dados').item.json.cpfCnpj }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Cliente Asaas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -480,
+        160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "LLzqAR2e0e6FkczJ",
+          "name": "Credencial Asaas"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.totalCount }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Cliente existe no Asaas?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -240,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "m1",
+              "name": "asaas_customer_id",
+              "value": "={{ $('Cliente existe no Asaas?').item.json.data[0].id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Pegar ID Existente",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-sandbox.asaas.com/v3/customers",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $('Padronizar Dados').item.json.nome }}"
+            },
+            {
+              "name": "cpfCnpj",
+              "value": "={{ $('Padronizar Dados').item.json.cpfCnpj }}"
+            },
+            {
+              "name": "email",
+              "value": "={{ $('Padronizar Dados').item.json.email }}"
+            },
+            {
+              "name": "mobilePhone",
+              "value": "={{ $('Padronizar Dados').item.json.whatsapp.toString().substring(2) }}"
+            },
+            {
+              "name": "postalCode",
+              "value": "={{ $('Padronizar Dados').item.json.cep_destino }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Criar Cliente Asaas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        320
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "LLzqAR2e0e6FkczJ",
+          "name": "Credencial Asaas"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "m2",
+              "name": "asaas_customer_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Pegar ID Novo",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        320
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Merge IDs",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        480,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "Pedidos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Calcular Total').item.json.pedido_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Status",
+              "fieldValue": "aguardando_pagamento"
+            },
+            {
+              "fieldId": "Asaas_link_pagamento",
+              "fieldValue": "={{ $('Criar Cobrança Asaas').item.json.invoiceUrl }}"
+            },
+            {
+              "fieldId": "Asaas_ID_Pagamento",
+              "fieldValue": "={{ $('Criar Cobrança Asaas').item.json.id }}"
+            },
+            {
+              "fieldId": "asaas_cliente",
+              "fieldValue": "={{ $('Criar Cobrança Asaas').item.json.customer }}"
+            },
+            {
+              "fieldId": "trello_id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "nome_transportadora",
+              "fieldValue": "={{ $('Calcular Total1').item.json.nome_transportadora }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualizar Pedido Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        160
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "id": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "updateFields": {
+          "idList": "69cc2efcf67ce94008577607"
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Trello Aguardando Pagamento",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        160
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "At9fcHDFzwYgQfJZ",
+          "name": "Trello LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1",
+              "name": "valor_total",
+              "value": "={{ \n  (parseFloat($json.valor_produto.toString().replace(',', '.')) + \n  parseFloat($json.valor_frete.toString().replace(',', '.')) + \n  (['SIM', 'TRUE'].includes($json.upsell_fone?.toString().toUpperCase().trim()) ? 129.97 : 0)).toFixed(2) \n}}",
+              "type": "number"
+            },
+            {
+              "id": "c2",
+              "name": "nome_transportadora",
+              "value": "={{ $('When Executed by Another Workflow').item.json.nome_transportadora }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Calcular Total1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -848,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "tableId": "Pedidos",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Cliente_ID",
+              "fieldValue": "={{ $('Padronizar Dados').item.json.registro_cliente_id }}"
+            },
+            {
+              "fieldId": "Produto_ID",
+              "fieldValue": "={{ $('Padronizar Dados').item.json.sku_produto }}"
+            },
+            {
+              "fieldId": "Status",
+              "fieldValue": "aguardando_pagamento"
+            },
+            {
+              "fieldId": "valor_total",
+              "fieldValue": "={{ $json.valor_total }}"
+            },
+            {
+              "fieldId": "upsell_fone",
+              "fieldValue": "={{ $('When Executed by Another Workflow').item.json.upsell_fone }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Criar Pedido1",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        160
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "nome"
+            },
+            {
+              "name": "whatsapp"
+            },
+            {
+              "name": "cpfCnpj"
+            },
+            {
+              "name": "sku_produto"
+            },
+            {
+              "name": "valor_produto",
+              "type": "number"
+            },
+            {
+              "name": "valor_frete",
+              "type": "number"
+            },
+            {
+              "name": "forma_pag"
+            },
+            {
+              "name": "registro_cliente_id"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "cep_completo",
+              "type": "number"
+            },
+            {
+              "name": "nome_transportadora"
+            },
+            {
+              "name": "nome_produto"
+            },
+            {
+              "name": "upsell_fone",
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1248,
+        160
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "name": "link_pagamento",
+              "value": "={{ $('Criar Cobrança Asaas').item.json.invoiceUrl }}",
+              "type": "string"
+            },
+            {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "name": "valor_total",
+              "value": "={{ $('Atualizar Pedido Supabase').item.json.valor_total }}",
+              "type": "string"
+            },
+            {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "name": "status",
+              "value": "={{ $('Atualizar Pedido Supabase').item.json.Status }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2624,
+        176
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "fone",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2160,
+        160
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_EVOLUTION_API_HOST//message/sendText/lmsmartwatch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\": \"5517988129065\",\n  \"text\": \"✅ *PEDIDO CRIADO!*\\n\\nCliente: {{ $('Padronizar Dados').item.json.nome }}\\nWhatsApp: {{ $('Padronizar Dados').item.json.whatsapp }}\\nProduto: {{ $json.nome }}{{ $json.cores ?? '' }}\\nTotal: R$ {{ $('Calcular Total1').item.json.valor_total }}\\n\\n🎧 Fone: {{ $('Atualizar Pedido Supabase').item.json.upsell_fone }}\\n\\nLink enviado ao cliente. Aguardando pagamento! 🕐\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2400,
+        64
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "3LIFexcfrEKKPyWU",
+          "name": "EvoAPI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "listId": "69cc2efcf67ce94008577606",
+        "name": "=Novo Pedido: {{ $('Padronizar Dados').item.json.nome }}",
+        "description": "=💰 Total: R$ {{ $('Calcular Total1').item.json.valor_total }}\n🚚 Frete: {{ $('Calcular Total1').item.json.nome_transportadora }}\n🔗 Link: {{ $('Criar Cobrança Asaas').item.json.invoiceUrl }}\nWhatsApp: {{ $('Padronizar Dados').item.json.whatsapp }}\ncpfCnpj: {{ $('Padronizar Dados').item.json.cpfCnpj }}\nnome_Produto: {{ $('Padronizar Dados').item.json.nome_produto }}\nemail: {{ $('Padronizar Dados').item.json.email }}",
+        "additionalFields": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Criar Cartao Trello",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        160
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "At9fcHDFzwYgQfJZ",
+          "name": "Trello LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "Cliente_LM_SmARTWATCH",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.Cliente_ID }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Trello_ID",
+              "fieldValue": "={{ $json.trello_id }}"
+            },
+            {
+              "fieldId": "asaas_cliente_id",
+              "fieldValue": "={{ $json.asaas_cliente }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        160
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "atualiza cliente",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "Produtos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $('Criar Pedido1').item.json.Produto_ID }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1952,
+        160
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Produtos",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "calc2",
+              "name": "asaas_customer_id",
+              "value": "={{ $json.asaas_customer_id }}",
+              "type": "string"
+            },
+            {
+              "id": "calc3",
+              "name": "pedido_id",
+              "value": "={{ $('Criar Pedido1').item.json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Calcular Total",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        720,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-sandbox.asaas.com/v3/payments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "billingType",
+              "value": "={{ $('Padronizar Dados').item.json.forma_pag.toLowerCase().includes('pix') ? 'PIX' : 'CREDIT_CARD' }}"
+            },
+            {
+              "name": "customer",
+              "value": "={{ $json.asaas_customer_id }}"
+            },
+            {
+              "name": "value",
+              "value": "={{ $('Calcular Total1').item.json.valor_total }}"
+            },
+            {
+              "name": "dueDate",
+              "value": "={{ $now.plus({days: 3}).format('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ (\"Smartwatch LM - Pedido \" + $('Padronizar Dados').item.json.nome_produto).replace(/[^\\x00-\\x7F]/g, \"\") }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Criar Cobrança Asaas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        928,
+        160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "LLzqAR2e0e6FkczJ",
+          "name": "Credencial Asaas"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ \"https://api-sandbox.asaas.com/v3/customers/\" + $('Cliente existe no Asaas?').item.json.data[0].id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cpfCnpj",
+              "value": "={{ $('Padronizar Dados').item.json.cpfCnpj }}"
+            },
+            {
+              "name": "email",
+              "value": "={{ $('Padronizar Dados').item.json.email }}"
+            },
+            {
+              "name": "mobilePhone",
+              "value": "={{ $('Padronizar Dados').item.json.whatsapp }}"
+            },
+            {
+              "name": "postalCode",
+              "value": "={{ $('Padronizar Dados').item.json.cep_destino }}"
+            },
+            {
+              "name": "upsell_fone",
+              "value": "={{ $('When Executed by Another Workflow').item.json.upsell_fone }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        144
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualizar Cliente Asaas",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "LLzqAR2e0e6FkczJ",
+          "name": "Credencial Asaas"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "nome": "Leonardo Marcos 👽⚓️",
+          "whatsapp": "5517988129065",
+          "cpfCnpj": "36685045809",
+          "sku_produto": "8",
+          "valor_produto": 259.94,
+          "valor_frete": 26.35,
+          "forma_pag": "pix",
+          "registro_cliente_id": "43",
+          "email": "leohnd2@outlook.com",
+          "cep_completo": 14730151,
+          "nome_transportadora": "sedex",
+          "nome_produto": "Smartwatch XH ultra 2 + Fone com tela touch",
+          "upsell_fone": true
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Padronizar Dados": {
+      "main": [
+        [
+          {
+            "node": "Calcular Total1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Cliente Asaas": {
+      "main": [
+        [
+          {
+            "node": "Cliente existe no Asaas?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente existe no Asaas?": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Cliente Asaas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Criar Cliente Asaas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pegar ID Existente": {
+      "main": [
+        [
+          {
+            "node": "Merge IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Cliente Asaas": {
+      "main": [
+        [
+          {
+            "node": "Pegar ID Novo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pegar ID Novo": {
+      "main": [
+        [
+          {
+            "node": "Merge IDs",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge IDs": {
+      "main": [
+        [
+          {
+            "node": "Calcular Total",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello Aguardando Pagamento": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Pedido Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Total1": {
+      "main": [
+        [
+          {
+            "node": "Criar Pedido1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Pedido1": {
+      "main": [
+        [
+          {
+            "node": "Buscar Cliente Asaas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Padronizar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Pedido Supabase": {
+      "main": [
+        [
+          {
+            "node": "atualiza cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Cartao Trello": {
+      "main": [
+        [
+          {
+            "node": "Trello Aguardando Pagamento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "atualiza cliente": {
+      "main": [
+        [
+          {
+            "node": "Buscar Produtos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Produtos": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Total": {
+      "main": [
+        [
+          {
+            "node": "Criar Cobrança Asaas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar Cobrança Asaas": {
+      "main": [
+        [
+          {
+            "node": "Criar Cartao Trello",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Cliente Asaas": {
+      "main": [
+        [
+          {
+            "node": "Pegar ID Existente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "CPL2N4FPIpplMfCR",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "America/Sao_Paulo"
+  },
+  "versionId": "8a9a5a96-3f68-48be-aa31-e01d8f1055ee",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "D9CKAattBhybnzB3",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}

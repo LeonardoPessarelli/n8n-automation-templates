@@ -1,0 +1,665 @@
+﻿{
+  "name": "Avisando sobre novos Leads LMSmartwatch",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 3"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 6"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Cron Qua e Sab 9h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "Cliente_LM_SmARTWATCH",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "created_at",
+              "condition": "gte",
+              "keyValue": "={{ $now.minus({ days: 3 }).startOf(\"day\").toISO() }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Leads Dom a Qua",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_EVOLUTION_API_HOST/message/sendText/lmsmartwatch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "5517988129065"
+            },
+            {
+              "name": "text",
+              "value": "=📊 *Relatório Nexvia.ai — LM Smartwatch*\n📅 Período: {{ $now.minus({ days: 3 }).setZone(\"America/Sao_Paulo\").toFormat(\"dd/MM\") }} a {{ $now.setZone(\"America/Sao_Paulo\").toFormat(\"dd/MM\") }}\n\n✅ *Novos leads no período:* {{ $input.all().length }}\n\n📋 *Lista:*\n{{ $input.all().map((l, i) => (i+1) + \". \" + l.json.nome + \" — \" + l.json.whatsapp).join(\"\\n\") }}\n\n_Nexvia.ai • Inteligência para o seu negócio_ 🤖"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Enviar Resumo Qua Sab",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        0
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "3LIFexcfrEKKPyWU",
+          "name": "EvoAPI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 4"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 0"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Cron Qui e Dom 9h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "Cliente_LM_SmARTWATCH",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "created_at",
+              "condition": "gte",
+              "keyValue": "={{ $now.minus({ days: 3 }).startOf(\"day\").toISO() }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Leads Qui a Sab",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        224,
+        224
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_EVOLUTION_API_HOST/message/sendText/lmsmartwatch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "5517988129065"
+            },
+            {
+              "name": "text",
+              "value": "=📊 *Relatório Nexvia.ai — LM Smartwatch*\n📅 Período: {{ $now.minus({ days: 3 }).setZone(\"America/Sao_Paulo\").toFormat(\"dd/MM\") }} a {{ $now.setZone(\"America/Sao_Paulo\").toFormat(\"dd/MM\") }}\n\n✅ *Novos leads no período:* {{ $input.all().length }}\n\n📋 *Lista:*\n{{ $input.all().map((l, i) => (i+1) + \". \" + l.json.nome + \" — \" + l.json.whatsapp).join(\"\\n\") }}\n\n_Nexvia.ai • Inteligência para o seu negócio_ 🤖"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Enviar Resumo Qui Dom",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        224
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "3LIFexcfrEKKPyWU",
+          "name": "EvoAPI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "novo-lead-lm",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Webhook Novo Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        544
+      ],
+      "webhookId": "49eea0ac-2a8e-4958-ab91-4c5693b3ea78"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "Pedidos",
+        "returnAll": true,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Cliente_ID",
+              "condition": "eq",
+              "keyValue": "={{ $json.body.record.id }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Pedido Pago",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        224,
+        544
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.Asaas_ID_Pagamento }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "rightValue": "null",
+              "id": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Tem Pedido Pago?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "Produtos",
+        "returnAll": true,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $input.first().json.Produto_ID }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Produto",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        672,
+        448
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1fBBD1j4KFfArY8Fd21bZC0rs7f4Bi_y9AmjycNkOqv4",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "NOME": "={{ $('Webhook Novo Lead').item.json.body.record.nome }}",
+            "WHATSAPP": "={{ $('Webhook Novo Lead').item.json.body.record.whatsapp }}",
+            "DATA": "={{ DateTime.fromISO($('Webhook Novo Lead').item.json.body.record.created_at).toFormat('dd-MM-yyyy') }}",
+            "INTERESSE": "={{ $('Webhook Novo Lead').item.json.body.record.interesse }}",
+            "CpfCnpj": "={{ $('Webhook Novo Lead').item.json.body.record.CpfCnpj }}",
+            "COMPORTAMENTO": "={{ $('Webhook Novo Lead').item.json.body.record.comportamento_escondido }}",
+            "COR": "={{ $json.cores }}",
+            "PRODUTO": "={{ $json.nome }}",
+            "UPSELL FONE": "={{ $(\"Buscar Pedido Pago\").first().json.upsell_fone ? \"Sim\" : \"Não\" }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "NOME",
+              "displayName": "NOME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "WHATSAPP",
+              "displayName": "WHATSAPP",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DATA",
+              "displayName": "DATA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "INTERESSE",
+              "displayName": "INTERESSE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CpfCnpj",
+              "displayName": "CpfCnpj",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "COMPORTAMENTO",
+              "displayName": "COMPORTAMENTO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "COR",
+              "displayName": "COR",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PRODUTO",
+              "displayName": "PRODUTO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "UPSELL FONE",
+              "displayName": "UPSELL FONE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Sheets Com Produto",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        896,
+        448
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "e6EHjUSPvUlsEArX",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1fBBD1j4KFfArY8Fd21bZC0rs7f4Bi_y9AmjycNkOqv4",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "NOME": "={{ $('Webhook Novo Lead').item.json.body.record.nome }}",
+            "WHATSAPP": "={{ $('Webhook Novo Lead').item.json.body.record.whatsapp }}",
+            "DATA": "={{ DateTime.fromISO($('Webhook Novo Lead').item.json.body.record.created_at).toFormat('dd-MM-yyyy') }}",
+            "INTERESSE": "={{ $('Webhook Novo Lead').item.json.body.record.interesse }}",
+            "CpfCnpj": "={{ $('Webhook Novo Lead').item.json.body.record.CpfCnpj }}",
+            "COMPORTAMENTO": "={{ $('Webhook Novo Lead').item.json.body.record.comportamento_escondido }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "NOME",
+              "displayName": "NOME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "WHATSAPP",
+              "displayName": "WHATSAPP",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DATA",
+              "displayName": "DATA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "INTERESSE",
+              "displayName": "INTERESSE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CpfCnpj",
+              "displayName": "CpfCnpj",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "COMPORTAMENTO",
+              "displayName": "COMPORTAMENTO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Sheets Sem Produto",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        672,
+        640
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "e6EHjUSPvUlsEArX",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Cron Qua e Sab 9h": {
+      "main": [
+        [
+          {
+            "node": "Leads Dom a Qua",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads Dom a Qua": {
+      "main": [
+        [
+          {
+            "node": "Enviar Resumo Qua Sab",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron Qui e Dom 9h": {
+      "main": [
+        [
+          {
+            "node": "Leads Qui a Sab",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads Qui a Sab": {
+      "main": [
+        [
+          {
+            "node": "Enviar Resumo Qui Dom",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Novo Lead": {
+      "main": [
+        [
+          {
+            "node": "Buscar Pedido Pago",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Pedido Pago": {
+      "main": [
+        [
+          {
+            "node": "Tem Pedido Pago?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tem Pedido Pago?": {
+      "main": [
+        [
+          {
+            "node": "Buscar Produto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sheets Sem Produto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Produto": {
+      "main": [
+        [
+          {
+            "node": "Sheets Com Produto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "CPL2N4FPIpplMfCR",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "1fa42f1a-65e5-48a8-b75a-dd4a20af87e1",
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "HPbVa1WIId1Fy7VC",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}

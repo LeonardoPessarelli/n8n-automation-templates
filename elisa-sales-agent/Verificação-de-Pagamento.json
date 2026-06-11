@@ -1,0 +1,504 @@
+﻿{
+  "name": "Verificação de Pagamento LM Smartwatch",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pagamento",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "483916fd-49f7-48be-a676-0b2a6e5f3d38"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "Pedidos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Asaas_ID_Pagamento",
+              "condition": "eq",
+              "keyValue": "={{ $('Webhook').item.json.body.payment.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Status",
+              "fieldValue": "pago"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "atualizar status",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "Cliente_LM_SmARTWATCH",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.Cliente_ID }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "follow_up",
+              "fieldValue": "Pago"
+            },
+            {
+              "fieldId": "asaas_cliente_id",
+              "fieldValue": "={{ $('atualizar status').item.json.asaas_cliente }}"
+            },
+            {
+              "fieldId": "Trello_ID",
+              "fieldValue": "={{ $('atualizar status').item.json.trello_id }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualiza Follow Up",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "Cliente_LM_SmARTWATCH",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "whatsapp",
+              "keyValue": "={{ $json.whatsapp }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Busca cliente",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "Pedidos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "Asaas_ID_Pagamento",
+              "keyValue": "={{ $('Webhook').item.json.body.payment.id }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Pedido",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        896,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "Produtos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $json.Produto_ID }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Produtos",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "id": {
+          "__rl": true,
+          "value": "={{ $('Busca cliente').item.json.Trello_ID }}",
+          "mode": "id"
+        },
+        "additionalFields": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Pega Cartao Trello",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        0
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "At9fcHDFzwYgQfJZ",
+          "name": "Trello LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "id": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "updateFields": {
+          "idList": "69cc2efcf67ce94008577608"
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualiza Cartao Trello",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        0
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "At9fcHDFzwYgQfJZ",
+          "name": "Trello LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_EVOLUTION_API_HOST//message/sendText/lmsmartwatch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\": \"5517988129065\",\n  \"text\": \"💰 *PAGAMENTO CONFIRMADO!* 🚀\\n\\n👤 *Cliente:* {{ $('Busca cliente').item.json.nome }}\\n📦 *Produto:* {{ $('Buscar Produtos').item.json.nome }}{{ $('Buscar Produtos').item.json.cores ? ' ' + $('Buscar Produtos').item.json.cores : '' }}\\n💵 *Valor:* R$ {{ $('atualizar status').item.json.valor_total }}\\n🚚 *Transportadora:* {{ $('Buscar Pedido').item.json.nome_transportadora }}\\n\\n🆔 *ID Pagamento:* {{ $('atualizar status').item.json.Asaas_ID_Pagamento }}\\n\\n🎧 *Fone:* {{ $('Buscar Pedido').item.json.upsell_fone ? 'Fone com tela incluso' : 'Nenhum' }}\\n\\n✅ *Status:* Pago e pronto para envio!\"\n}",
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1792,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "3LIFexcfrEKKPyWU",
+          "name": "EvoAPI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"received\": true\n}",
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2016,
+        0
+      ]
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "YOUR_N8N_HOST",
+            "user-agent": "Asaas_Hmlg/3.0",
+            "content-length": "1501",
+            "accept": "application/json",
+            "accept-encoding": "gzip",
+            "asaas-access-token": "whsec_eOMP2phHPGqWblFdDKAYiv9UVIb27kB3zXjxIUHvX4o",
+            "cache-control": "no-cache",
+            "content-type": "application/json",
+            "pragma": "no-cache",
+            "traceparent": "00-6a04cfc800000000736ad06a2715c2b7-32078de76cc9e8d1-00",
+            "tracestate": "dd=s:0;p:32078de76cc9e8d1;t.tid:6a04cfc800000000",
+            "x-datadog-parent-id": "3605006051835504849",
+            "x-datadog-sampling-priority": "0",
+            "x-datadog-tags": "_dd.p.tid=6a04cfc800000000",
+            "x-datadog-trace-id": "8316688816233890487",
+            "x-forwarded-for": "54.233.45.238",
+            "x-forwarded-host": "YOUR_N8N_HOST",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "e0aeee5dda92",
+            "x-real-ip": "54.233.45.238"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "id": "evt_d26e303b238e509335ac9ba210e51b0f&15781016",
+            "event": "PAYMENT_RECEIVED",
+            "dateCreated": "2026-05-13 16:23:52",
+            "account": {
+              "id": "00000000-0000-0000-0000-000000000000",
+              "ownerId": null
+            },
+            "payment": {
+              "object": "payment",
+              "id": "pay_7q19930tz6jyxccr",
+              "dateCreated": "2026-05-13",
+              "customer": "cus_000007820076",
+              "checkoutSession": null,
+              "paymentLink": null,
+              "value": 286.29,
+              "netValue": 285.3,
+              "originalValue": null,
+              "interestValue": null,
+              "description": "Smartwatch LM - Pedido Smartwatch XH ultra 2 + Fone com tela touch",
+              "billingType": "PIX",
+              "confirmedDate": "2026-05-13",
+              "pixTransaction": "f972358c-157a-4e26-9aa2-2f690f9e18a8",
+              "pixQrCodeId": "8cd0a0f2-9d06-44e0-8b02-af7ddf6e5109",
+              "status": "RECEIVED",
+              "dueDate": "2026-05-16",
+              "originalDueDate": "2026-05-16",
+              "paymentDate": "2026-05-13",
+              "clientPaymentDate": "2026-05-13",
+              "installmentNumber": null,
+              "invoiceUrl": "https://sandbox.asaas.com/i/7q19930tz6jyxccr",
+              "invoiceNumber": "14747132",
+              "externalReference": null,
+              "deleted": false,
+              "anticipated": false,
+              "anticipable": false,
+              "creditDate": "2026-05-13",
+              "estimatedCreditDate": "2026-05-13",
+              "transactionReceiptUrl": "https://sandbox.asaas.com/comprovantes/h/UEFZTUVOVF9SRUNFSVZFRDpwYXlfN3ExOTkzMHR6Nmp5eGNjcg%3D%3D",
+              "nossoNumero": null,
+              "bankSlipUrl": null,
+              "lastInvoiceViewedDate": "2026-05-13T19:07:58Z",
+              "lastBankSlipViewedDate": null,
+              "discount": {
+                "value": 0,
+                "limitDate": null,
+                "dueDateLimitDays": 0,
+                "type": "FIXED"
+              },
+              "fine": {
+                "value": 0,
+                "type": "FIXED"
+              },
+              "interest": {
+                "value": 0,
+                "type": "PERCENTAGE"
+              },
+              "postalService": false,
+              "escrow": null,
+              "refunds": null
+            }
+          },
+          "webhookUrl": "https://YOUR_N8N_HOST/webhook/pagamento",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "atualizar status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "atualizar status": {
+      "main": [
+        [
+          {
+            "node": "Atualiza Follow Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualiza Follow Up": {
+      "main": [
+        [
+          {
+            "node": "Busca cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Busca cliente": {
+      "main": [
+        [
+          {
+            "node": "Buscar Pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Pedido": {
+      "main": [
+        [
+          {
+            "node": "Buscar Produtos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Produtos": {
+      "main": [
+        [
+          {
+            "node": "Pega Cartao Trello",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pega Cartao Trello": {
+      "main": [
+        [
+          {
+            "node": "Atualiza Cartao Trello",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualiza Cartao Trello": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "CPL2N4FPIpplMfCR"
+  },
+  "versionId": "93c57af9-62d9-48fc-b64f-7f945ccfa53a",
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "sJCLFPznZ2yGwgxl",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}

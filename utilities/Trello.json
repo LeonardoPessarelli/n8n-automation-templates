@@ -1,0 +1,178 @@
+﻿{
+  "name": "Trello",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "nome"
+            },
+            {
+              "name": "whatsapp"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "cpfCnpj"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "typeVersion": 1.1,
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        272,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "listId": "69cc2efcf67ce94008577606",
+        "name": "={{ $('When Executed by Another Workflow').item.json.nome }}",
+        "description": "=Telefone: {{ $('When Executed by Another Workflow').item.json.whatsapp }} \nEmail: {{ $('When Executed by Another Workflow').item.json.email }}\nCPF/CNPJ: {{ $('When Executed by Another Workflow').item.json.cpfCnpj }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        480,
+        352
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Create a card",
+      "credentials": {
+        "trelloApi": {
+          "id": "At9fcHDFzwYgQfJZ",
+          "name": "Trello LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "Cliente_LM_SmARTWATCH",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "CpfCnpj",
+              "condition": "eq",
+              "keyValue": "={{ $('When Executed by Another Workflow').item.json.cpfCnpj }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Trello_ID",
+              "fieldValue": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        688,
+        352
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Update a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        896,
+        352
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "content": "## Cartôes Trello\n",
+        "height": 320,
+        "width": 1024,
+        "color": "#5943FE"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        160,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Create a card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a card": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "70a35269-624c-4f20-9884-084e4d3adbb3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "sJCLFPznZ2yGwgxl",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}

@@ -1,0 +1,1939 @@
+﻿{
+  "name": "Tools MCP Nexvia",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Conversa_ID"
+            },
+            {
+              "name": "tipo"
+            },
+            {
+              "name": "profissional_id"
+            },
+            {
+              "name": "data_inicio"
+            },
+            {
+              "name": "data_fim"
+            },
+            {
+              "name": "titulo"
+            },
+            {
+              "name": "descricao"
+            },
+            {
+              "name": "agenda_id"
+            },
+            {
+              "name": "WhatsApp"
+            },
+            {
+              "name": "nome"
+            },
+            {
+              "name": "empresa"
+            },
+            {
+              "name": "plano_interesse"
+            },
+            {
+              "name": "objecao"
+            },
+            {
+              "name": "data_txt"
+            },
+            {
+              "name": "horario_txt"
+            },
+            {
+              "name": "evento_id"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        672
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tipo.toLowerCase() }}",
+                    "rightValue": "consultar_profissionais",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "consultar_profissionais"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tipo.toLowerCase() }}",
+                    "rightValue": "consultar_disponibilidade",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "consultar_disponibilidade"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tipo.toLowerCase() }}",
+                    "rightValue": "agendar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "agendar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tipo.toLowerCase() }}",
+                    "rightValue": "reagendar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "reagendar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tipo.toLowerCase() }}",
+                    "rightValue": "cancelar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "cancelar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tipo.toLowerCase() }}",
+                    "rightValue": "buscar_consultas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "00000000-0000-0000-0000-000000000000"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "buscar_consultas"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        224,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "nexvia_profissionais",
+        "returnAll": true,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ativo",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Consultar profissionais",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "p1",
+              "name": "Profissionais",
+              "value": "=Especialista encontrado: {{ $json.nome }} — {{ $json.cargo }}",
+              "type": "string"
+            },
+            {
+              "id": "p2",
+              "name": "profissional_id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "p3",
+              "name": "agenda_id",
+              "value": "={{ $json.agenda_id }}",
+              "type": "string"
+            },
+            {
+              "id": "p4",
+              "name": "nome",
+              "value": "={{ $json.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "p5",
+              "name": "cargo",
+              "value": "={{ $json.cargo }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "PROFISSIONAIS",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_profissionais",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.profissional_id }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Pegar AG Profissional",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        448,
+        288
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "encontrou?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "nexvia_agendamentos",
+        "returnAll": true,
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "profissional_id",
+              "condition": "eq",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.profissional_id }}"
+            },
+            {
+              "keyName": "data_inicio",
+              "condition": "gte",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.data_inicio }}"
+            },
+            {
+              "keyName": "data_fim",
+              "condition": "lte",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.data_fim }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Disponibilidade Profissional",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        896,
+        160
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1136,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "tz1",
+              "name": "Horário",
+              "value": "={{ $json.data_inicio.toDateTime().setZone('America/Sao_Paulo').toFormat(\"dd/MM/yyyy 'às' HH:mm\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "SET TIMEZONE",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1344,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "al1",
+              "name": "Retorno",
+              "value": "Horário disponível. Confirme com o cliente e execute Agendar com os dados: profissional_id, agenda_id, data_inicio, data_fim, titulo e descrição.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "AGENDA LIVRE",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1344,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ie1",
+              "name": "Retorno",
+              "value": "ID do profissional não encontrado. Execute Buscar_profissionais para obter o ID correto.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "ID errado",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        896,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid_comunicacao",
+              "keyValue": "={{ $('When Executed by Another Workflow').item.json.Conversa_ID.toString() }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Cliente",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        448,
+        576
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "nexvia_agendamentos",
+        "returnAll": true,
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "profissional_id",
+              "condition": "eq",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.profissional_id }}"
+            },
+            {
+              "keyName": "data_inicio",
+              "condition": "eq",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.data_inicio }}"
+            },
+            {
+              "keyName": "data_fim",
+              "condition": "eq",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.data_fim }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Disponibilidade",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        672,
+        576
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $(\"When Executed by Another Workflow\").item.json.agenda_id }}"
+        },
+        "start": "={{ $(\"When Executed by Another Workflow\").item.json.data_inicio.toDateTime() }}",
+        "end": "={{ $(\"When Executed by Another Workflow\").item.json.data_fim.toDateTime() }}",
+        "additionalFields": {
+          "description": "={{ $(\"When Executed by Another Workflow\").item.json[\"descricao\"] }}",
+          "summary": "={{ $(\"When Executed by Another Workflow\").item.json.titulo }}"
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Criar evento",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1120,
+        496
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "K4O23365rXOu78ZZ",
+          "name": "Google Calendar account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid_comunicacao",
+              "condition": "eq",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.Conversa_ID }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "ultimo_evento_id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "ultimo_contato",
+              "fieldValue": "={{ $now }}"
+            },
+            {
+              "fieldId": "status_lead",
+              "fieldValue": "agendado"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualizar Cliente",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        400
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "nexvia_agendamentos",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "cliente_id",
+              "fieldValue": "={{ $(\"Buscar Cliente\").item.json.id }}"
+            },
+            {
+              "fieldId": "evento_id",
+              "fieldValue": "={{ $(\"Criar evento\").item.json.id }}"
+            },
+            {
+              "fieldId": "profissional_id",
+              "fieldValue": "={{ $(\"When Executed by Another Workflow\").item.json.profissional_id }}"
+            },
+            {
+              "fieldId": "titulo",
+              "fieldValue": "={{ $(\"When Executed by Another Workflow\").item.json.titulo }}"
+            },
+            {
+              "fieldId": "descricao",
+              "fieldValue": "={{ $(\"When Executed by Another Workflow\").item.json[\"descricao\"] }}"
+            },
+            {
+              "fieldId": "data_inicio",
+              "fieldValue": "={{ $(\"When Executed by Another Workflow\").item.json.data_inicio }}"
+            },
+            {
+              "fieldId": "data_fim",
+              "fieldValue": "={{ $(\"When Executed by Another Workflow\").item.json.data_fim }}"
+            },
+            {
+              "fieldId": "data_txt",
+              "fieldValue": "={{ $(\"When Executed by Another Workflow\").item.json.data_txt }}"
+            },
+            {
+              "fieldId": "horario_txt",
+              "fieldValue": "={{ $(\"When Executed by Another Workflow\").item.json.horario_txt }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "agendado"
+            },
+            {
+              "fieldId": "link_evento",
+              "fieldValue": "={{ $('Criar evento').item.json.htmlLink }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Adicionar agendamento",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        400
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "r1",
+              "name": "status",
+              "value": "=✅ *Reunião marcada com sucesso!*\n\n👤 *Cliente:* {{ $(\"Buscar Cliente\").item.json.nome }}\n🏢 *Empresa:* {{ $(\"When Executed by Another Workflow\").item.json.empresa }}\n📅 *Data:* {{ $(\"When Executed by Another Workflow\").item.json.data_txt }}\n⏰ *Horário:* {{ $(\"When Executed by Another Workflow\").item.json.horario_txt }}",
+              "type": "string"
+            },
+            {
+              "id": "r2",
+              "name": "evento_id",
+              "value": "={{ $(\"Adicionar agendamento\").item.json.evento_id }}",
+              "type": "string"
+            },
+            {
+              "id": "r3",
+              "name": "agenda_id",
+              "value": "={{ $(\"When Executed by Another Workflow\").item.json.agenda_id }}",
+              "type": "string"
+            },
+            {
+              "id": "r4",
+              "name": "data",
+              "value": "={{ $(\"When Executed by Another Workflow\").item.json.data_txt }}",
+              "type": "string"
+            },
+            {
+              "id": "r5",
+              "name": "horario",
+              "value": "={{ $(\"When Executed by Another Workflow\").item.json.horario_txt }}",
+              "type": "string"
+            },
+            {
+              "id": "r6",
+              "name": "titulo",
+              "value": "={{ $(\"When Executed by Another Workflow\").item.json.titulo }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "retorno do agendamento",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1792,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ea1",
+              "name": "Retorno",
+              "value": "Agenda_id incorreto. Execute Buscar_profissionais para obter o agenda_id correto e tente novamente.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Erro ao agendar",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1344,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ind1",
+              "name": "Retorno",
+              "value": "Horário indisponível. Informe o cliente e peça um novo horário. Disponibilidade: segunda a sexta das 10h às 19h, sábado das 10h às 14h.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Indisponivel",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        672
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid_comunicacao",
+              "keyValue": "={{ $('When Executed by Another Workflow').item.json.Conversa_ID.toString() }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Cliente1",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        448,
+        864
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "={{ $json.agenda_id }}",
+          "mode": "id"
+        },
+        "eventId": "={{ $('Buscar_agendamento').item.json.evento_id }}",
+        "updateFields": {
+          "description": "={{ $(\"When Executed by Another Workflow\").item.json[\"descricao\"] }}",
+          "end": "={{ $(\"When Executed by Another Workflow\").item.json.data_fim.toDateTime() }}",
+          "start": "={{ $(\"When Executed by Another Workflow\").item.json.data_inicio.toDateTime() }}",
+          "summary": "={{ $(\"When Executed by Another Workflow\").item.json.titulo }}"
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualizar Evento",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1120,
+        864
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "K4O23365rXOu78ZZ",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "nexvia_agendamentos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "evento_id",
+              "condition": "eq",
+              "keyValue": "={{ $(\"Atualizar Evento\").item.json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "titulo",
+              "fieldValue": "={{ $('When Executed by Another Workflow').item.json.titulo }}"
+            },
+            {
+              "fieldId": "data_inicio",
+              "fieldValue": "={{ $('When Executed by Another Workflow').item.json.data_inicio.toDateTime().setZone('America/Sao_Paulo') }}"
+            },
+            {
+              "fieldId": "data_fim",
+              "fieldValue": "={{ $('When Executed by Another Workflow').item.json.data_fim.toDateTime().setZone('America/Sao_Paulo') }}"
+            },
+            {
+              "fieldId": "data_txt",
+              "fieldValue": "={{ $('When Executed by Another Workflow').item.json.data_txt }}"
+            },
+            {
+              "fieldId": "horario_txt",
+              "fieldValue": "={{ $('When Executed by Another Workflow').item.json.horario_txt }}"
+            },
+            {
+              "fieldId": "profissional_id",
+              "fieldValue": "={{ $('When Executed by Another Workflow').item.json.profissional_id }}"
+            },
+            {
+              "fieldId": "evento_id",
+              "fieldValue": "={{ $('Atualizar Evento').item.json.id }}"
+            },
+            {
+              "fieldId": "cliente_id",
+              "fieldValue": "={{ $('Buscar Cliente1').item.json.id }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualizando Agendamento",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        864
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid_comunicacao",
+              "condition": "eq",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.Conversa_ID }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "ultimo_evento_id",
+              "fieldValue": "={{ $(\"Atualizar Evento\").item.json.id }}"
+            },
+            {
+              "fieldId": "ultimo_contato",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Atualizando Cliente",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        864
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "r21",
+              "name": "Retorno",
+              "value": "=Status: Reagendamento feito com sucesso.\nTítulo: {{ $(\"Atualizando Agendamento\").item.json.titulo }}\nData: {{ $(\"Atualizando Agendamento\").item.json.data_txt }}\nHorário: {{ $(\"Atualizando Agendamento\").item.json.horario_txt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "retorno2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1792,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid_comunicacao",
+              "keyValue": "={{ $('When Executed by Another Workflow').item.json.Conversa_ID.toString() }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar Cliente2",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        448,
+        1152
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "={{ $json.agenda_id }}",
+          "mode": "id"
+        },
+        "eventId": "={{ $(\"When Executed by Another Workflow\").item.json.evento_id }}",
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Cancelar Evento",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1136,
+        1152
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "K4O23365rXOu78ZZ",
+          "name": "Google Calendar account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "nexvia_agendamentos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "evento_id",
+              "condition": "eq",
+              "keyValue": "={{ $(\"When Executed by Another Workflow\").item.json.evento_id }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Deletar no supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        1056
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d1",
+              "name": "Retorno",
+              "value": "Status: Cancelado com sucesso.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "detalhes",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1792,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "rt1",
+              "name": "Retorno",
+              "value": "Cancelamento não realizado. Evento ou agenda_id incorreto. Verifique os dados com Buscar_consultas e tente novamente.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "retorno1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        1248
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid_comunicacao",
+              "keyValue": "={{ $('When Executed by Another Workflow').item.json.Conversa_ID.toString() }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Pegar Cliente",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        448,
+        1440
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "nexvia_agendamentos",
+        "returnAll": true,
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "cliente_id",
+              "condition": "eq",
+              "keyValue": "={{ $(\"Pegar Cliente\").item.json.id }}"
+            },
+            {
+              "keyName": "data_inicio",
+              "condition": "gte",
+              "keyValue": "={{ $now.toISO() }}"
+            }
+          ]
+        }
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Listar consultas",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        672,
+        1440
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "tem consultas",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "rs1",
+              "name": "Retorno",
+              "value": "Nenhuma consulta encontrada para este cliente. Sugira um novo agendamento.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "retorno",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        1536
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dc1",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "dc2",
+              "name": "evento_id",
+              "value": "={{ $json.evento_id }}",
+              "type": "string"
+            },
+            {
+              "id": "dc4",
+              "name": "profissional_id",
+              "value": "={{ $json.profissional_id }}",
+              "type": "string"
+            },
+            {
+              "id": "dc5",
+              "name": "titulo",
+              "value": "={{ $json.titulo }}",
+              "type": "string"
+            },
+            {
+              "id": "dc6",
+              "name": "descricao",
+              "value": "={{ $json.descricao }}",
+              "type": "string"
+            },
+            {
+              "id": "dc7",
+              "name": "data",
+              "value": "={{ $json.data_txt }}",
+              "type": "string"
+            },
+            {
+              "id": "dc8",
+              "name": "horario",
+              "value": "={{ $json.horario_txt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "dados das consultas",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        1360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_agendamentos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "cliente_id",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        672,
+        864
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar_agendamento",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_profissionais",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $json.profissional_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        896,
+        864
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar_profissional",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_agendamentos",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "cliente_id",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        672,
+        1152
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar_agendamento1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "nexvia_profissionais",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $json.profissional_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        896,
+        1152
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Buscar_profissional1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "nexvia_clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ultimo_evento_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Buscar_agendamento1').item.json.evento_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        1056
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Deleta_evento_cliente",
+      "credentials": {
+        "supabaseApi": {
+          "id": "1kta1raj8dmbET5W",
+          "name": "LMSmartwatch"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "Conversa_ID": "5172013013",
+          "tipo": "Cancelar",
+          "profissional_id": "0",
+          "data_inicio": null,
+          "data_fim": null,
+          "titulo": null,
+          "descricao": null,
+          "agenda_id": "1",
+          "WhatsApp": "undefined",
+          "nome": null,
+          "empresa": null,
+          "plano_interesse": null,
+          "objecao": null,
+          "data_txt": null,
+          "horario_txt": null,
+          "evento_id": "kceqf8luk836nud23m7osvattk"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Consultar profissionais",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pegar AG Profissional",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Buscar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Buscar Cliente1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Buscar Cliente2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pegar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar profissionais": {
+      "main": [
+        [
+          {
+            "node": "PROFISSIONAIS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pegar AG Profissional": {
+      "main": [
+        [
+          {
+            "node": "encontrou?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "encontrou?": {
+      "main": [
+        [
+          {
+            "node": "Disponibilidade Profissional",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ID errado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Disponibilidade Profissional": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "SET TIMEZONE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AGENDA LIVRE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Cliente": {
+      "main": [
+        [
+          {
+            "node": "Buscar Disponibilidade",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Disponibilidade": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Criar evento",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Indisponivel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar evento": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Erro ao agendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Cliente": {
+      "main": [
+        [
+          {
+            "node": "Adicionar agendamento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adicionar agendamento": {
+      "main": [
+        [
+          {
+            "node": "retorno do agendamento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Cliente1": {
+      "main": [
+        [
+          {
+            "node": "Buscar_agendamento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizar Evento": {
+      "main": [
+        [
+          {
+            "node": "Atualizando Agendamento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizando Agendamento": {
+      "main": [
+        [
+          {
+            "node": "Atualizando Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atualizando Cliente": {
+      "main": [
+        [
+          {
+            "node": "retorno2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Cliente2": {
+      "main": [
+        [
+          {
+            "node": "Buscar_agendamento1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar Evento": {
+      "main": [
+        [
+          {
+            "node": "Deletar no supabase",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "retorno1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar no supabase": {
+      "main": [
+        [
+          {
+            "node": "Deleta_evento_cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pegar Cliente": {
+      "main": [
+        [
+          {
+            "node": "Listar consultas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listar consultas": {
+      "main": [
+        [
+          {
+            "node": "tem consultas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "tem consultas": {
+      "main": [
+        [
+          {
+            "node": "dados das consultas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "retorno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar_agendamento": {
+      "main": [
+        [
+          {
+            "node": "Buscar_profissional",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar_profissional": {
+      "main": [
+        [
+          {
+            "node": "Atualizar Evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar_agendamento1": {
+      "main": [
+        [
+          {
+            "node": "Buscar_profissional1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar_profissional1": {
+      "main": [
+        [
+          {
+            "node": "Cancelar Evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deleta_evento_cliente": {
+      "main": [
+        [
+          {
+            "node": "detalhes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "errorWorkflow": "CPL2N4FPIpplMfCR"
+  },
+  "versionId": "4c57416a-4638-4580-a0b1-d60849a24583",
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "DkXn9cQhCYU5GiQE",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}

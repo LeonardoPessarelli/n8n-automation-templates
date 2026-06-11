@@ -1,0 +1,74 @@
+﻿{
+  "name": "Alerta de Erro LM Whats",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_EVOLUTION_API_HOST//message/sendText/lmsmartwatch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n       \"number\": \"5517988129065\",\n       \"text\": \"⚠️ *ERRO NO WORKFLOW*\\n\\nWorkflow: {{ $json.workflow.name }}\\nNó com erro: {{ $json.execution.lastNodeExecuted }}\\nErro: {{ $json.execution.error.message }}\\n\\nAcesse o n8n para corrigir.\"\n     }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "3LIFexcfrEKKPyWU",
+          "name": "EvoAPI"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Erro LM Whats"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Erro LM Whats": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "449ad78c-ead9-4874-91e2-8c3002ba7137",
+  "meta": {
+    "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
+  },
+  "id": "CPL2N4FPIpplMfCR",
+  "tags": [
+    {
+      "updatedAt": "2026-03-10T17:56:58.587Z",
+      "createdAt": "2026-03-10T17:56:58.587Z",
+      "id": "XrNsu8FcfpsVTRx8",
+      "name": "LM Automation"
+    }
+  ]
+}
