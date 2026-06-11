@@ -90,7 +90,7 @@
       "name": "pegar clientes",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -174,7 +174,7 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -194,7 +194,7 @@
       "name": "Postgres Chat Memory",
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -231,7 +231,7 @@
       "executeOnce": false,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -268,7 +268,7 @@
       "name": "Update a row",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -385,7 +385,7 @@
       "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -405,7 +405,7 @@
       "name": "Postgres Chat Memory1",
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -442,7 +442,7 @@
       "executeOnce": false,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -479,7 +479,7 @@
       "name": "Update a row1",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -573,7 +573,7 @@
       "name": "OpenAI Chat Model2",
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -593,7 +593,7 @@
       "name": "Postgres Chat Memory2",
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -630,7 +630,7 @@
       "executeOnce": false,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -667,7 +667,7 @@
       "name": "Update a row2",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -761,7 +761,7 @@
       "name": "OpenAI Chat Model3",
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -781,7 +781,7 @@
       "name": "Postgres Chat Memory3",
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -818,7 +818,7 @@
       "executeOnce": false,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -855,7 +855,7 @@
       "name": "Update a row3",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -936,7 +936,7 @@
       "name": "Get a row",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -963,7 +963,7 @@
       "name": "Update a card",
       "credentials": {
         "trelloApi": {
-          "id": "At9fcHDFzwYgQfJZ",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Trello LMSmartwatch"
         }
       }
@@ -996,7 +996,7 @@
       "rewireOutputLogTo": "ai_tool",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1017,7 +1017,7 @@
       "name": "buscar produtos1",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1039,7 +1039,7 @@
       "rewireOutputLogTo": "ai_tool",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1060,7 +1060,7 @@
       "name": "buscar produtos3",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1506,13 +1506,14 @@
     "builderVariant": "mcp",
     "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
   },
-  "id": "jGqHOcWAn5UY9cLt",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": [
     {
       "updatedAt": "2026-03-10T17:56:58.587Z",
       "createdAt": "2026-03-10T17:56:58.587Z",
-      "id": "XrNsu8FcfpsVTRx8",
+      "id": "YOUR_CREDENTIAL_ID",
       "name": "LM Automation"
     }
   ]
 }
+

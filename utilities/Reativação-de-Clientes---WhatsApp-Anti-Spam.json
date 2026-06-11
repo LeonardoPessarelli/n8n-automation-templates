@@ -120,7 +120,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       },
@@ -368,7 +368,7 @@
       ],
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       },
@@ -405,7 +405,7 @@
       ],
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -728,13 +728,14 @@
   "meta": {
     "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
   },
-  "id": "KDeiDQZDMyr689hA",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": [
     {
       "updatedAt": "2026-03-10T17:56:58.587Z",
       "createdAt": "2026-03-10T17:56:58.587Z",
-      "id": "XrNsu8FcfpsVTRx8",
+      "id": "YOUR_CREDENTIAL_ID",
       "name": "LM Automation"
     }
   ]
 }
+

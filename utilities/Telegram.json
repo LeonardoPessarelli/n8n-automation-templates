@@ -20,7 +20,7 @@
       "webhookId": "68566c66-cfa1-45e3-b20b-0e9a422fb55a",
       "credentials": {
         "telegramApi": {
-          "id": "sBEzWDghETK2siv9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Nexvia"
         }
       }
@@ -220,7 +220,7 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -249,7 +249,7 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -271,7 +271,7 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -372,7 +372,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -438,7 +438,7 @@
       ],
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -471,7 +471,7 @@
       "name": "Buffer ",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -493,7 +493,7 @@
       "name": "Buffer 3",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -515,7 +515,7 @@
       "name": "Add Texto Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -535,7 +535,7 @@
       "name": "Apagar Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -651,7 +651,7 @@
       "name": "Add Audio Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -673,7 +673,7 @@
       "name": "Add Error Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -732,7 +732,7 @@
       "name": "Add PDF Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -754,7 +754,7 @@
       "name": "Add Imagem Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -842,7 +842,7 @@
       "name": "Redis",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -910,7 +910,7 @@
       "name": "OpenAI Chat Model3",
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -1384,7 +1384,7 @@
       "webhookId": "7dc522f6-7884-4f17-8f24-1cb87b663d33",
       "credentials": {
         "telegramApi": {
-          "id": "sBEzWDghETK2siv9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Nexvia"
         }
       }
@@ -1406,7 +1406,7 @@
       "webhookId": "7dc522f6-7884-4f17-8f24-1cb87b663d33",
       "credentials": {
         "telegramApi": {
-          "id": "sBEzWDghETK2siv9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Nexvia"
         }
       }
@@ -1522,7 +1522,7 @@
       "webhookId": "7dc522f6-7884-4f17-8f24-1cb87b663d33",
       "credentials": {
         "telegramApi": {
-          "id": "sBEzWDghETK2siv9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Nexvia"
         }
       }
@@ -1556,7 +1556,7 @@
       "name": "Postgres Chat Memory",
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -1677,7 +1677,7 @@
       "webhookId": "d91b85fe-29f1-465e-8a20-113e80c16ec4",
       "credentials": {
         "telegramApi": {
-          "id": "sBEzWDghETK2siv9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Nexvia"
         }
       }
@@ -1746,7 +1746,7 @@
       "name": "Aviso de duvida",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -2588,13 +2588,14 @@
     "builderVariant": "mcp",
     "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
   },
-  "id": "so4wkf9p7OTq23MA",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": [
     {
       "updatedAt": "2026-03-10T17:56:58.587Z",
       "createdAt": "2026-03-10T17:56:58.587Z",
-      "id": "XrNsu8FcfpsVTRx8",
+      "id": "YOUR_CREDENTIAL_ID",
       "name": "LM Automation"
     }
   ]
 }
+

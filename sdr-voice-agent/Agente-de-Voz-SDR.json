@@ -35,7 +35,7 @@
       "name": "Criar Evento",
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "K4O23365rXOu78ZZ",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Calendar account"
         }
       }
@@ -401,7 +401,7 @@
       "name": "Criar cliente",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -909,7 +909,7 @@
       "name": "Atualizar estado",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -967,7 +967,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "K4O23365rXOu78ZZ",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Calendar account"
         }
       }
@@ -1016,7 +1016,7 @@
       ],
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -1044,7 +1044,7 @@
       ],
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1083,7 +1083,7 @@
       ],
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -2048,6 +2048,7 @@
     "templateCredsSetupCompleted": true,
     "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
   },
-  "id": "HnvUBCOm9MC0nrXa",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": []
 }
+

@@ -237,7 +237,7 @@
       "name": "Consultar profissionais",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -564,7 +564,7 @@
       "name": "Adicionar agendamento",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -654,7 +654,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -805,7 +805,7 @@
       "name": "Deletar no supabase",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -904,7 +904,7 @@
       "alwaysOutputData": false,
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "K4O23365rXOu78ZZ",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Calendar account"
         }
       },
@@ -933,7 +933,7 @@
       "name": "Pegar Cliente",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -970,7 +970,7 @@
       "name": "Atualizando Cliente",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1027,7 +1027,7 @@
       "name": "Atualizando Agendamento",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1056,7 +1056,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       },
@@ -1099,7 +1099,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1128,7 +1128,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1170,7 +1170,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1211,7 +1211,7 @@
       "name": "Atualizar Cliente",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1239,7 +1239,7 @@
       "name": "Buscar Cliente1",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1270,7 +1270,7 @@
       "name": "Atualizar Evento",
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "K4O23365rXOu78ZZ",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Calendar account"
         }
       }
@@ -1298,7 +1298,7 @@
       "name": "Buscar Cliente2",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1325,7 +1325,7 @@
       "alwaysOutputData": false,
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "K4O23365rXOu78ZZ",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Calendar account"
         }
       },
@@ -1714,13 +1714,14 @@
     "templateCredsSetupCompleted": true,
     "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
   },
-  "id": "DkXn9cQhCYU5GiQE",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": [
     {
       "updatedAt": "2026-03-10T17:56:58.587Z",
       "createdAt": "2026-03-10T17:56:58.587Z",
-      "id": "XrNsu8FcfpsVTRx8",
+      "id": "YOUR_CREDENTIAL_ID",
       "name": "LM Automation"
     }
   ]
 }
+

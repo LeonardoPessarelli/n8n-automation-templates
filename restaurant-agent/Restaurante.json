@@ -25,7 +25,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -91,7 +91,7 @@
       ],
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -143,7 +143,7 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -164,7 +164,7 @@
       ],
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -198,7 +198,7 @@
           "mappingMode": "defineBelow",
           "schema": [
             {
-              "id": "IdConversa",
+              "id": "YOUR_CREDENTIAL_ID",
               "canBeUsedToMatch": true,
               "required": false,
               "displayName": "IdConversa",
@@ -218,7 +218,7 @@
               "defaultMatch": false
             },
             {
-              "id": "WhatsAppHumano",
+              "id": "YOUR_CREDENTIAL_ID",
               "canBeUsedToMatch": true,
               "required": false,
               "displayName": "WhatsAppHumano",
@@ -296,7 +296,7 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -386,7 +386,7 @@
       "executeOnce": false,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -575,7 +575,7 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -604,7 +604,7 @@
       ],
       "credentials": {
         "openAiApi": {
-          "id": "oFLE0wRSCPmyOaKw",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "lmsmartwatch"
         }
       }
@@ -673,7 +673,7 @@
       "name": "Buffer ",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -695,7 +695,7 @@
       "name": "Add Texto Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -715,7 +715,7 @@
       "name": "Apagar Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -789,7 +789,7 @@
       "name": "Add Audio Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -811,7 +811,7 @@
       "name": "Add Error Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -870,7 +870,7 @@
       "name": "Add PDF Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -892,7 +892,7 @@
       "name": "Add Imagem Buffer1",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -1208,7 +1208,7 @@
       "name": "Buffer 4",
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -1325,7 +1325,7 @@
       ],
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -1367,7 +1367,7 @@
       ],
       "credentials": {
         "postgres": {
-          "id": "HquMS1gmDy0PAF2M",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres Supabase lmsmartwatch"
         }
       }
@@ -1464,7 +1464,7 @@
       ],
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -1487,7 +1487,7 @@
       ],
       "credentials": {
         "redis": {
-          "id": "eSMj7QmQNIcsLfY9",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis Upstash"
         }
       }
@@ -1777,7 +1777,7 @@
       "name": "atualizar pedido",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1816,7 +1816,7 @@
       "name": "atualizar cliente",
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1883,7 +1883,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -1919,7 +1919,7 @@
       "typeVersion": 4.2,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -2711,13 +2711,14 @@
   "meta": {
     "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
   },
-  "id": "vTtZFQTseba08iVZ",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": [
     {
       "updatedAt": "2026-03-10T17:56:58.587Z",
       "createdAt": "2026-03-10T17:56:58.587Z",
-      "id": "XrNsu8FcfpsVTRx8",
+      "id": "YOUR_CREDENTIAL_ID",
       "name": "LM Automation"
     }
   ]
 }
+

@@ -44,7 +44,7 @@
       "name": "Redis",
       "credentials": {
         "redis": {
-          "id": "kNYmiTCKxb8cTkqa",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Redis account"
         }
       }
@@ -123,7 +123,7 @@
       "name": "Postgres Chat Memory",
       "credentials": {
         "postgres": {
-          "id": "sPQn3vnrvUyidB97",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Postgres account"
         }
       }
@@ -169,7 +169,7 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "1GNZJEmvpS8YvWsl",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "OpenAi account"
         }
       }
@@ -205,7 +205,7 @@
       "name": "HTTP Request",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "pmRoeqgoLyfbgdv5",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Header Auth account"
         }
       }
@@ -361,13 +361,14 @@
     "templateCredsSetupCompleted": true,
     "instanceId": "7c1e74a2508773c303d267161a8cfcc2f3e6da44158f431fd39db7a60433621b"
   },
-  "id": "TvXhMZYJu1I9KKBC",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": [
     {
       "createdAt": "2025-06-04T21:43:16.732Z",
       "updatedAt": "2025-06-04T21:43:16.732Z",
-      "id": "1iCwF9FA6lk04TJI",
+      "id": "YOUR_CREDENTIAL_ID",
       "name": "NoCode StartUp"
     }
   ]
 }
+

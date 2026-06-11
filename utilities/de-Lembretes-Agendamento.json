@@ -98,7 +98,7 @@
       "name": "GET CONSULTAS",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -139,7 +139,7 @@
       "name": "GET CLIENTE",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -228,7 +228,7 @@
       "name": "FINALIZAR LEMBRETE",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -369,7 +369,7 @@
       "name": "GET CONSULTAS1",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -410,7 +410,7 @@
       "name": "GET CLIENTE1",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -499,7 +499,7 @@
       "name": "FINALIZAR LEMBRETE1",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -768,6 +768,7 @@
     "templateCredsSetupCompleted": true,
     "instanceId": "e88e0bf8a341e29f8b95268b96e335be1d58d1dbc25a197228b6ec3eb6c2e866"
   },
-  "id": "0XMU3tWjfVTf083O",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": []
 }
+

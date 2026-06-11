@@ -49,7 +49,7 @@
       ],
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -86,7 +86,7 @@
       "executeOnce": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -139,7 +139,7 @@
       ],
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -176,7 +176,7 @@
       "executeOnce": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "3LIFexcfrEKKPyWU",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "EvoAPI"
         }
       }
@@ -224,7 +224,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -288,7 +288,7 @@
       ],
       "credentials": {
         "supabaseApi": {
-          "id": "1kta1raj8dmbET5W",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LMSmartwatch"
         }
       }
@@ -372,7 +372,7 @@
               "removed": false
             },
             {
-              "id": "COMPORTAMENTO",
+              "id": "YOUR_CREDENTIAL_ID",
               "displayName": "COMPORTAMENTO",
               "required": false,
               "defaultMatch": false,
@@ -427,7 +427,7 @@
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "e6EHjUSPvUlsEArX",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets account"
         }
       }
@@ -508,7 +508,7 @@
               "removed": false
             },
             {
-              "id": "COMPORTAMENTO",
+              "id": "YOUR_CREDENTIAL_ID",
               "displayName": "COMPORTAMENTO",
               "required": false,
               "defaultMatch": false,
@@ -533,7 +533,7 @@
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "e6EHjUSPvUlsEArX",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets account"
         }
       }
@@ -653,13 +653,14 @@
     "builderVariant": "mcp",
     "instanceId": "d3d60a6ae7bb0db78b2945be8bda47abfb2713af711b866351c5f66a51205e55"
   },
-  "id": "HPbVa1WIId1Fy7VC",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": [
     {
       "updatedAt": "2026-03-10T17:56:58.587Z",
       "createdAt": "2026-03-10T17:56:58.587Z",
-      "id": "XrNsu8FcfpsVTRx8",
+      "id": "YOUR_CREDENTIAL_ID",
       "name": "LM Automation"
     }
   ]
 }
+

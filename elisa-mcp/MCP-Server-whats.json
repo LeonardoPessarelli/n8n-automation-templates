@@ -94,7 +94,7 @@
       "name": "Criar_cliente",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -660,7 +660,7 @@
       "name": "Atualizar_cliente",
       "credentials": {
         "supabaseApi": {
-          "id": "Hk6uigSVtyd3WYPm",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Supabase  NOCODE"
         }
       }
@@ -766,6 +766,7 @@
     "templateCredsSetupCompleted": true,
     "instanceId": "e88e0bf8a341e29f8b95268b96e335be1d58d1dbc25a197228b6ec3eb6c2e866"
   },
-  "id": "TWjRvd9I0MB464rW",
+  "id": "YOUR_CREDENTIAL_ID",
   "tags": []
 }
+
